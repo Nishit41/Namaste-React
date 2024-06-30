@@ -1,4 +1,12 @@
-const heading = React.createElement("h1",{id:"heading"}, "Hello world From React");
+//  write a code for this nested Child
+{/* <div id="parent">
+    <div id ="child">
+        <h1>I am a H1 tag</h1>
+    </div>
+</div>  */}
+const heading = React.createElement("h1",{id:"heading"}, 
+  React.createElement("div",{id:"parent"},React.createElement("div",{id:"child"},React.createElement("h1",{},"I am an H1 tag")))
+);
  console.log(heading) 
 // returns object which having 
 // $typeof: Symbol(react.element), type: 'h1', key: null, ref: null, props: {…}, …}
