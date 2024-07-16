@@ -1,12 +1,26 @@
 import RestaurantCard from "./RestaurantCard";
 import restaurants from "../utils/mockData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Body = () => {
   const [filteredRestaurantsList, setFilteredRestaurantList] =
-    useState(restaurants);
-
-    console.log({filteredRestaurantsList});
+    useState([]);
+  useEffect(() => {
+    fetchData();
+  }, []);
+  const fetchData = async () => {
+    const data = await fetch(
+      "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.34260&lng=85.30990&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    );
+    const json = await data.json();
+    console.log(
+      "json=>",
+      json?.data?.cards[4]
+    );
+    setFilteredRestaurantList(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+  };
 
   return (
     <>
@@ -18,7 +32,7 @@ const Body = () => {
           setFilteredRestaurantList(filteredList);
         }}
       >
-        Filter
+        Top Rated Restaurant
       </button>
       <div
         style={{
@@ -30,9 +44,7 @@ const Body = () => {
         {filteredRestaurantsList.map((restaurant) => (
           <RestaurantCard
             key={restaurant.info?.id}
-            src={
-              "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/5dff22bc484599ce6f02501c73eb0f16"
-            }
+            src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`}
             resName={restaurant.info?.name}
             cuisines={restaurant.info?.cuisines}
             NoOfStar={restaurant.info?.avgRating}
