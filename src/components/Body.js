@@ -3,28 +3,46 @@ import restaurants from "../utils/mockData";
 import { useEffect, useState } from "react";
 
 const Body = () => {
-  const [filteredRestaurantsList, setFilteredRestaurantList] =
-    useState([]);
+  const [filteredRestaurantsList, setFilteredRestaurantList] = useState([]);
+  const [searchedRestaurantList, setSearchedRestaurantList] = useState([]);
+
   useEffect(() => {
     fetchData();
   }, []);
+
+  const [searchText, setSearchText] = useState(filteredRestaurantsList);
   const fetchData = async () => {
     const data = await fetch(
       "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.34260&lng=85.30990&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
     );
     const json = await data.json();
-    console.log(
-      "json=>",
-      json?.data?.cards[4]
-    );
+    console.log(json?.data?.cards[4]);
     setFilteredRestaurantList(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
+    setSearchedRestaurantList(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
   };
 
+  function handleSearch() {
+    const filteredRestaurant = filteredRestaurantsList.filter((restaurant) =>
+        restaurant?.info.name.toLowerCase().includes(searchText.toLowerCase())
+      );
+    setSearchedRestaurantList(filteredRestaurant);
+  }
+
   return (
     <>
-      <button
+      <div style={{ display: "flex",gap:"4px",paddingBottom:"8px"}}>
+        <input
+          value={searchText}
+          onChange={(e) => setSearchText(e.target.value)}
+        ></input>
+        <button onClick={() => handleSearch()}>
+         Search
+        </button>
+        <button
         onClick={() => {
           const filteredList = filteredRestaurantsList.filter(
             (restaurant) => restaurant.info.avgRating > 4.1
@@ -34,6 +52,8 @@ const Body = () => {
       >
         Top Rated Restaurant
       </button>
+      </div>
+  
       <div
         style={{
           display: "flex",
@@ -41,7 +61,7 @@ const Body = () => {
           justifyContent: "space-between",
         }}
       >
-        {filteredRestaurantsList.map((restaurant) => (
+        {searchedRestaurantList.map((restaurant) => (
           <RestaurantCard
             key={restaurant.info?.id}
             src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`}
