@@ -13,9 +13,11 @@ const Body = () => {
   const [searchText, setSearchText] = useState(filteredRestaurantsList);
   const fetchData = async () => {
     const data = await fetch(
-      "https://corsproxy.io/https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.34260&lng=85.30990&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
+    `https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.34260&lng=85.30990&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING')}`
     );
+    console.log(data)
     const json = await data.json();
+    console.log(json)
     console.log(json?.data?.cards[4]);
     setFilteredRestaurantList(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
