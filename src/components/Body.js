@@ -64,6 +64,9 @@ const Body = () => {
         }}
       >
         {searchedRestaurantList.map((restaurant) => (
+          <div
+          onClick={} 
+          >
           <RestaurantCard
             key={restaurant.info?.id}
             src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`}
@@ -72,6 +75,7 @@ const Body = () => {
             NoOfStar={restaurant.info?.avgRating}
             timeTaken={restaurant.info?.sla?.slaString}
           />
+          </div>
         ))}
       </div>
     </>

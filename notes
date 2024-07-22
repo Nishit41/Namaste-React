@@ -1,0 +1,11 @@
+# This file is meant to import notes during this course
+
+Routes
+Link Component vs achor tag </a>
+Both can link to given  component but in link having special features it will not 
+refresh the component while achor tag does 
+
+Difference between client side routing and server side routing;
+in client side router pages can route through frontend code no api call is made to  fecth the pages
+while in server side routing api calls are made to fetch the data from api to render the respective 
+pages 
