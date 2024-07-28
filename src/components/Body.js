@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 const Body = () => {
   const [filteredRestaurantsList, setFilteredRestaurantList] = useState([]);
   const [searchedRestaurantList, setSearchedRestaurantList] = useState([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     fetchData();
   }, []);
@@ -18,13 +18,12 @@ const Body = () => {
         "https://www.swiggy.com/dapi/restaurants/list/v5?lat=23.34260&lng=85.30990&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
       )}`
     );
-    console.log(data);
+
     const json = await data.json();
-    console.log(json);
-    console.log(json?.data?.cards[4]);
     setFilteredRestaurantList(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+    setIsLoading(false);
     setSearchedRestaurantList(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -37,7 +36,9 @@ const Body = () => {
     setSearchedRestaurantList(filteredRestaurant);
   }
 
-  return (
+  return isLoading ? 
+  <h1>isLoading..</h1> : // TODO: Replace it with simmer 
+  (
     <>
       <div style={{ display: "flex", gap: "4px", paddingBottom: "8px" }}>
         <input

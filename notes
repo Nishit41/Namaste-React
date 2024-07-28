@@ -8,4 +8,12 @@ refresh the component while achor tag does
 Difference between client side routing and server side routing;
 in client side router pages can route through frontend code no api call is made to  fecth the pages
 while in server side routing api calls are made to fetch the data from api to render the respective 
-pages 
+pages  
+
+# Chunking 
+To split the code with bundles to make a scalable App using react and to increase the performance of app
+this also 
+called Dynamic Bundling, Chunking 
+lazyloading,
+onDemandLoading,
+code spliting etc.
