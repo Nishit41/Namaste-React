@@ -31,7 +31,7 @@ const Body = () => {
 
   function handleSearch() {
     const filteredRestaurant = filteredRestaurantsList.filter((restaurant) =>
-      restaurant?.info.name.toLowerCase().includes(searchText.toLowerCase())
+      restaurant?.info.name.toLowerCase().includes(searchText?.toLowerCase())
     );
     setSearchedRestaurantList(filteredRestaurant);
   }
@@ -40,13 +40,15 @@ const Body = () => {
   <h1>isLoading..</h1> : // TODO: Replace it with simmer 
   (
     <>
-      <div style={{ display: "flex", gap: "4px", paddingBottom: "8px" }}>
+      <div className="my-2">
         <input
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
+          className="outline-2"
         ></input>
-        <button onClick={() => handleSearch()}>Search</button>
+        <button className="bg-blue-800 text-white p-2 px-3 rounded-md border-none" onClick={() => handleSearch()}>Search</button>
         <button
+         className="mx-2 p-2 bg-blue-800 text-white rounded-md"
           onClick={() => {
             const filteredList = filteredRestaurantsList.filter(
               (restaurant) => restaurant.info.avgRating > 4.1
@@ -59,11 +61,7 @@ const Body = () => {
       </div>
 
       <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "space-between",
-        }}
+        className="flex justify-between flex-wrap p-4 gap-2"
       >
         {searchedRestaurantList.map((restaurant) => (
           <Link

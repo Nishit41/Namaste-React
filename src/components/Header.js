@@ -3,13 +3,12 @@ import { useOnlineStatus } from "../utils/useOnlineStatus";
 
 const Header = () => {
   const isOnline = useOnlineStatus();
- return <div className="header">
+ return <div className="flex justify-between px-8 py-4  bg-pink-200 shadow-md text-white">
     <div className="logo-container">
       logo
       <img className="logo" src="" />
     </div>
-    <div className="Nav-item">
-      <ul style={{ display: "flex", justifyContent: "space-between" }}>
+      <ul className="flex gap-2">
         <li>
           <Link to={"/"}>Home</Link>
         </li>
@@ -25,7 +24,6 @@ const Header = () => {
         <li>Cart</li>
         <li>{isOnline? "LogOut": "LogIn"}</li>
       </ul>
-    </div>
   </div>
 };
 export default Header;

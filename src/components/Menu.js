@@ -8,6 +8,7 @@ const Menu = () => {
  return<div>
         {restaurantMenu?.map((menu)=> <li>
         {menu.card?.card?.text}
+        
        </li>)}   
   </div>
 };
