@@ -1,13 +1,19 @@
 import { Link } from "react-router-dom";
 import { useOnlineStatus } from "../utils/useOnlineStatus";
+import { useContext } from "react";
+import { userContext } from "../utils/userContext";
 
 const Header = () => {
   const isOnline = useOnlineStatus();
- return <div className="flex justify-between px-8 py-4  bg-pink-200 shadow-md text-white">
-    <div className="logo-container">
-      logo
-      <img className="logo" src="" />
-    </div>
+  const {loggedInUser} = useContext(userContext);
+  return (
+    <div className="flex justify-between px-8 py-4  bg-pink-200 shadow-md text-white">
+      <div className="logo-container">
+        logo
+        {/* <img className="logo" src="" /> 
+        TODO: will implement this later
+        */}
+      </div>
       <ul className="flex gap-2">
         <li>
           <Link to={"/"}>Home</Link>
@@ -22,8 +28,9 @@ const Header = () => {
           <Link to="/contact">Contact Us</Link>
         </li>
         <li>Cart</li>
-        <li>{isOnline? "LogOut": "LogIn"}</li>
+        <li>{isOnline ? "LogIn" : "LogOut"}{" "}{loggedInUser}</li>
       </ul>
-  </div>
+    </div>
+  );
 };
 export default Header;

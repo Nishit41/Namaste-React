@@ -1,21 +1,32 @@
-import React,{lazy, Suspense} from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import ReactDOM from "react-dom/client";
-import Body from "./components/Body"
+import Body from "./components/Body";
 import Header from "./components/Header";
 import Menu from "./components/Menu";
 import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { userContext } from "./utils/userContext";
 
-const Grocery = lazy(()=> import('./components/Grocery'));
+const Grocery = lazy(() => import("./components/Grocery"));
 
-const AppLayout = () => (
-  <div>
-    <Header />
-    {/* {WE ARE USING OUTLET BECAUSE HEADER WILL BE CONSTANT ACROSS ALL THE ROUTES} */}
-    <Outlet />
-  </div>
-);
+const AppLayout = () => {
+  const [userName, setUserName] = useState(null);
+  // assume this is coming from api
+  const fetchUserName = () => setUserName("Nishit");
+  useEffect(fetchUserName, []);
+
+  return (
+    <userContext.Provider value={{ loggedInUser: userName }}>
+      {" "}
+      <div>
+        <Header />
+        {/* {WE ARE USING OUTLET BECAUSE HEADER WILL BE CONSTANT ACROSS ALL THE ROUTES} */}
+        <Outlet />
+      </div>
+    </userContext.Provider>
+  );
+};
 
 // the below lines are created to provide routes
 
@@ -30,34 +41,43 @@ const AppLayout = () => (
 //   {
 //     path:'/contact',
 //     element:<Contact/>,
-//   }  
+//   }
 // ])
 
 // Routes by children
 
- const appRouter = createBrowserRouter([
+const appRouter = createBrowserRouter([
   {
-    path:'/',
-    element:<AppLayout/>,
-    children:[{
-      path:'/',
-      element:<Body/>,
-    },{
-     path:'/about',
-     element:<About/>, 
-    },{
-      path:'/contact',
-      element:<Contact/>,
-    },{
-      path:'/restaurant/:resId',
-      element:<Menu/>,
-    },{
-      path:'/grocery',
-      element:<Suspense fallback={<>Loading...</>}><Grocery/></Suspense>,
-    }
-  ]
-  }
- ])
+    path: "/",
+    element: <AppLayout />,
+    children: [
+      {
+        path: "/",
+        element: <Body />,
+      },
+      {
+        path: "/about",
+        element: <About />,
+      },
+      {
+        path: "/contact",
+        element: <Contact />,
+      },
+      {
+        path: "/restaurant/:resId",
+        element: <Menu />,
+      },
+      {
+        path: "/grocery",
+        element: (
+          <Suspense fallback={<>Loading...</>}>
+            <Grocery />
+          </Suspense>
+        ),
+      },
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<RouterProvider router={appRouter}/>); // this root.render method is putting into do
+root.render(<RouterProvider router={appRouter} />); // this root.render method is putting into do
