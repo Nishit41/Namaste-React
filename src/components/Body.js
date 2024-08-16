@@ -1,11 +1,13 @@
 import RestaurantCard, { componentWithLabel } from "./RestaurantCard";
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { userContext } from "../utils/userContext";
 
 const Body = () => {
   const [filteredRestaurantsList, setFilteredRestaurantList] = useState([]);
   const [searchedRestaurantList, setSearchedRestaurantList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const { loggedInUser, setUserName } = useContext(userContext);
   useEffect(() => {
     fetchData();
   }, []);
@@ -61,6 +63,8 @@ const Body = () => {
         >
           Top Rated restaurant
         </button>
+        <input className="w-54 border-[2px] px-2 py-1" onChange={(e)=>setUserName(e?.target?.value)}>
+        </input> 
       </div>
       <div className="flex justify-between flex-wrap p-4 gap-2">
         {searchedRestaurantList?.map((restaurant) => (

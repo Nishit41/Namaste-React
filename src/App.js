@@ -17,7 +17,7 @@ const AppLayout = () => {
   useEffect(fetchUserName, []);
 
   return (
-    <userContext.Provider value={{ loggedInUser: userName }}>
+    <userContext.Provider value={{ loggedInUser: userName, setUserName }}>
       {" "}
       <div>
         <Header />
