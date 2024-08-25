@@ -2,6 +2,7 @@ import RestaurantCard, { componentWithLabel } from "./RestaurantCard";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { userContext } from "../utils/userContext";
+import { imgUrl } from "../utils/constant";
 
 const Body = () => {
   const [filteredRestaurantsList, setFilteredRestaurantList] = useState([]);
@@ -74,7 +75,7 @@ const Body = () => {
           >
             {restaurant.info?.availability?.opened ? (
               <LabelledComponent
-                src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`}
+                src={`${imgUrl}${restaurant?.info?.cloudinaryImageId}`}
                 resName={restaurant.info?.name}
                 cuisines={restaurant.info?.cuisines}
                 NoOfStar={restaurant.info?.avgRating}
@@ -82,7 +83,7 @@ const Body = () => {
               />
             ) : (
               <RestaurantCard
-                src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${restaurant?.info?.cloudinaryImageId}`}
+                src={`${imgUrl}${restaurant?.info?.cloudinaryImageId}`}
                 resName={restaurant.info?.name}
                 cuisines={restaurant.info?.cuisines}
                 NoOfStar={restaurant.info?.avgRating}

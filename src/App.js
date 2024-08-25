@@ -7,6 +7,9 @@ import { About } from "./components/About";
 import { Contact } from "./components/Contact";
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
 import { userContext } from "./utils/userContext";
+import { Provider } from "react-redux";
+import appStore from "./utils/store";
+import { Cart } from "./components/Cart";
 
 const Grocery = lazy(() => import("./components/Grocery"));
 
@@ -17,14 +20,16 @@ const AppLayout = () => {
   useEffect(fetchUserName, []);
 
   return (
+    <Provider store={appStore}>
     <userContext.Provider value={{ loggedInUser: userName, setUserName }}>
       {" "}
-      <div>
+      <div> 
         <Header />
         {/* {WE ARE USING OUTLET BECAUSE HEADER WILL BE CONSTANT ACROSS ALL THE ROUTES} */}
         <Outlet />
       </div>
     </userContext.Provider>
+    </Provider>
   );
 };
 
@@ -75,6 +80,10 @@ const appRouter = createBrowserRouter([
           </Suspense>
         ),
       },
+      {
+        path: "/cart",
+        element:<Cart/>
+      }
     ],
   },
 ]);
