@@ -23,24 +23,5 @@ Frontend: React, JavaScript, TypeScript, Redux Toolkit (RTK)
 Styling: Tailwind CSS
 
 
-Installation
-Clone the repository:
-bash
-Copy code
-git clone https://github.com/yourusername/namaste-react-swiggy-clone.git
-Navigate to the project directory:
-bash
-Copy code
-cd namaste-react-swiggy-clone
-Install dependencies:
-bash
-Copy code
-npm install
-Usage
-Start the development server:
-bash
-Copy code
-npm start
-Open your browser and navigate to http://localhost:3000 to view the app.
 
 
