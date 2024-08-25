@@ -1,4 +1,4 @@
-3 Namaste React -  Food Ordering App
+# Namaste React -  Food Ordering App
 This project is part of the Namaste React course by Akshay Saini. The course covers everything from React basics to advanced concepts, making this project a comprehensive learning experience in building a real-world application similar to Swiggy.
 
 # Features
